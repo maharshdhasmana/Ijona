@@ -80,7 +80,7 @@ const Dashboard = () => {
   };
 
   if (user === null && localStorage.getItem("user") === null) {
-    return navigate("/");
+    return navigate("/Login");
   } else {
     if (loading) {
       return (
