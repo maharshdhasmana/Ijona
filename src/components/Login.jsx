@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../Auth/AuthContext";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
+
   const { error, setError, handleLogin } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -131,10 +133,13 @@ const Login = () => {
           </div>
           <div>
             <p>
-              Don&apos;t have an account?{" "}
-              <a href="/register" className="link link-hover">
+              Don&apos;t have an account?
+              <button
+                className="btn btn-link btn-lg"
+                onClick={() => navigate("/register")}
+              >
                 Register
-              </a>
+              </button>
             </p>
           </div>
         </form>

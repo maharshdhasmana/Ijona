@@ -1,9 +1,11 @@
 import NavBar from "./NavBar";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthContext";
 import { useContext } from "react";
 import { useState, useEffect } from "react";
+
 const Dashboard = () => {
+  const navigate = useNavigate();
   const {
     user,
     handleDelete,
@@ -78,7 +80,7 @@ const Dashboard = () => {
   };
 
   if (user === null && localStorage.getItem("user") === null) {
-    return <Navigate replace to="/" />;
+    return navigate("/");
   } else {
     if (loading) {
       return (
