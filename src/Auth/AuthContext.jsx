@@ -10,6 +10,7 @@ const AuthContextComp = ({ children }) => {
   const [userlist, setUserList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [reglo, setReglo] = useState(false);
+  const [isdisabled, setisDisabled] = useState(false);
   const handleDelete = async (id) => {
     try {
       axios.delete(
@@ -112,6 +113,7 @@ const AuthContextComp = ({ children }) => {
       const user = response.data.find((u) => u.Email === email);
       if (!user) {
         setError({ bool: true, msg: "User Not Found" });
+        setisDisabled(false);
         setTimeout(() => {
           setError({ bool: false, msg: "" });
         }, "3000");
@@ -119,6 +121,7 @@ const AuthContextComp = ({ children }) => {
       }
       if (user.Password !== password) {
         setError({ bool: true, msg: "Invalid credentials" });
+        setisDisabled(false);
         setTimeout(() => {
           setError({ bool: false, msg: "" });
         }, "3000");
@@ -128,6 +131,7 @@ const AuthContextComp = ({ children }) => {
       if (isChecked) {
         localStorage.setItem("user", JSON.stringify(user));
       }
+      setisDisabled(false);
       navigate("/dashboard");
     } catch (e) {
       setError({ bool: true, msg: e.response.data.message });
@@ -151,6 +155,8 @@ const AuthContextComp = ({ children }) => {
         handleedit,
         handleRegister,
         reglo,
+        isdisabled,
+        setisDisabled,
       }}
     >
       {children}

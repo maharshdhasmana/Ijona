@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { error, setError, handleLogin } = useContext(AuthContext);
+  const { error, setError, handleLogin, isdisabled, setisDisabled } =
+    useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isChecked, setisChecked] = useState(false);
@@ -26,8 +27,10 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setisDisabled(true);
     if (!email) {
       setError({ bool: true, msg: "Email is required" });
+      setisDisabled(false);
       setTimeout(() => {
         setError({ bool: false, msg: "" });
       }, "3000");
@@ -35,6 +38,7 @@ const Login = () => {
     }
     if (!password) {
       setError({ bool: true, msg: "Password is required" });
+      setisDisabled(false);
       setTimeout(() => {
         setError({ bool: false, msg: "" });
       }, "3000");
@@ -127,7 +131,11 @@ const Login = () => {
             </div>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary" type="submit">
+            <button
+              disabled={isdisabled}
+              className="btn btn-primary"
+              type="submit"
+            >
               Login
             </button>
           </div>
