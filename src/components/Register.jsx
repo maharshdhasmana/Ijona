@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../Auth/AuthContext";
 
 const Login = () => {
-  const { error, setError, handleRegister, reglo } = useContext(AuthContext);
+  const { error, setError, handleRegister, reglo, isdisabled, setisDisabled } =
+    useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -20,15 +21,18 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setisDisabled(true);
     if (!email) {
       setError({ bool: true, msg: "Email is required" });
       setTimeout(() => {
+        setisDisabled(false);
         setError({ bool: false, msg: "" });
       }, "3000");
       return;
     }
     if (!password) {
       setError({ bool: true, msg: "Password is required" });
+      setisDisabled(false);
       setTimeout(() => {
         setError({ bool: false, msg: "" });
       }, "3000");
@@ -113,7 +117,11 @@ const Login = () => {
             </button>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary" type="submit">
+            <button
+              disabled={isdisabled}
+              className="btn btn-primary"
+              type="submit"
+            >
               Register
               {reglo && <span className="loading loading-spinner"></span>}
             </button>

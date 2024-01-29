@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { error, setError, handleLogin, isdisabled, setisDisabled } =
+  const { error, setError, handleLogin, isdisabled, setisDisabled, reglo } =
     useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -137,6 +137,7 @@ const Login = () => {
               type="submit"
             >
               Login
+              {reglo && <span className="loading loading-spinner"></span>}
             </button>
           </div>
           <div>

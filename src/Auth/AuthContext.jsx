@@ -98,18 +98,22 @@ const AuthContextComp = ({ children }) => {
           Password: password,
         }
       );
+      setisDisabled(false);
       setReglo(false);
       navigate("/login");
     } catch (e) {
+      setisDisabled(false);
       setError({ bool: true, msg: e.response.data.message });
     }
   };
   const handleLogin = async (email, password, isChecked) => {
     try {
+      setReglo(true);
       const response = await axios.get(
         "https://65b16702d16d31d11bded6fe.mockapi.io/api/ijona/Login",
         {}
       );
+      setReglo(false);
       const user = response.data.find((u) => u.Email === email);
       if (!user) {
         setError({ bool: true, msg: "User Not Found" });
